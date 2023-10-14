@@ -1,0 +1,53 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#ff400089",
+    "titleBar.inactiveBackground": "#ff3e0069",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "files.associations": {
+    "*.svx": "svelte"
+  },
+  "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "foam.files.ignore": [
+    "**/node_modules/**/*",
+    "**/package/**/*",
+    "**/.svelte-kit/**/*",
+    "**/dist/**/*"
+  ],
+  "foam.completion.label": "title",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false
+  },
+  // Silence the stylistic rules in your IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "@stylistic/*", "severity": "off" },
+    { "rule": "style*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "html",
+    "markdown",
+    "svelte",
+    "json",
+    "jsonc",
+    "yaml"
+  ],
+  "eslint.experimental.useFlatConfig": true,
+  "svelte.plugin.svelte.compilerWarnings": {
+    "a11y-click-events-have-key-events": "ignore"
+  }
+}
