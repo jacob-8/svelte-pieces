@@ -38,6 +38,7 @@ export { default as ResponsiveSlideover } from './ui/ResponsiveSlideover.svelte'
 export { default as ResponsiveSlots } from './ui/ResponsiveSlots.svelte';
 export { default as BottomSheet } from './ui/BottomSheet.svelte';
 export { default as DataList } from './ui/DataList.svelte';
+export { default as MultiSelect } from './ui/MultiSelect.svelte';
 
 export { default as QueryParam } from './stores/QueryParam.svelte';
 export { createPersistedStore } from './stores/persisted.js';

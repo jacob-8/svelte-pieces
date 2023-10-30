@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import { onMount, tick } from 'svelte';
+  import { onMount } from 'svelte';
   import { clickoutside } from '../actions/clickoutside';
   
   interface SelectOption {
@@ -12,6 +12,7 @@
   export let options: SelectOption[];
   export let placeholder = 'Select...';
   export let canWriteIn = false;
+  export let autofocus = false;
 
   let input: HTMLInputElement;
   let inputValue: string;
@@ -19,7 +20,7 @@
   let showOptions = false;
 
   onMount(() => {
-    input.focus();
+    if (autofocus) input.focus();
   })
 
   $: filtered = options.filter((o) =>
@@ -108,7 +109,7 @@
     {/each}
     <div class="actions">
       <input
-        class="border-none m-0 p-0 outline-none w-full"
+        class="border-none m-0 p-0 outline-none w-full bg-transparent"
         autocomplete="off"
         bind:value={inputValue}
         bind:this={input}
@@ -137,7 +138,6 @@
 
 <style>
   .multiselect {
-    background-color: white;
     border-bottom: 2px dashed #afafaf;
     position: relative;
     z-index: 1;
