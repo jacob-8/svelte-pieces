@@ -1,9 +1,11 @@
+// @ts-check
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import UnoCSS from '@unocss/svelte-scoped/preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+  extensions: ['.svelte', '.composition'],
   preprocess: [
     vitePreprocess(),
     UnoCSS({
@@ -28,5 +30,4 @@ const config = {
   },
 };
 
-import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite';
-export default augmentSvelteConfigForKitbook(config);
+export default config;

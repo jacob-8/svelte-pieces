@@ -1,10 +1,9 @@
-<script lang="ts">
-  import { Story } from 'kitbook';
-  import { clickoutside } from './clickoutside';
-</script>
+Add to your `app.d.ts` file:
 
-<Story>
-  <div class="p-10">
-    <div class="p-5 bg-red-300" use:clickoutside on:clickoutside={() => console.log('clicked outside')}>Click outside me</div>
-  </div>
-</Story>
+```ts title="app.d.ts"
+declare namespace svelteHTML {
+  interface HTMLAttributes<T> {
+    'on:clickoutside'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
+  }
+}
+```

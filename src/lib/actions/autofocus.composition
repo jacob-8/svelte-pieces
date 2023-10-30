@@ -1,0 +1,7 @@
+<script lang="ts">
+  function autofocus(node: HTMLInputElement) {
+    setTimeout(() => node.focus(), 15);
+  }
+</script>
+
+<input class="m-2 p-2" type="text" use:autofocus placeholder="Just start typing..." />
