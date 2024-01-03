@@ -1,0 +1,22 @@
+<script context="module" lang="ts">
+  import type { Viewport } from "kitbook";
+  export const viewports: Viewport[] = [{ width: 600, height: 600 }];
+</script>
+
+<script lang="ts">
+  import IntersectionObserverShared from "./IntersectionObserverShared.svelte";
+</script>
+
+{#each Array(10) as _}
+  <IntersectionObserverShared once let:intersecting top={-150} bottom={-150}>
+    <div class:intersecting style="height: 100px;">
+      {intersecting}
+    </div>
+  </IntersectionObserverShared>
+{/each}
+
+<style>
+  .intersecting {
+    --at-apply: bg-red-100 border border-red-400;
+  }
+</style>

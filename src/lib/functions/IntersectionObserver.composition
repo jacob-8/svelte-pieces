@@ -1,0 +1,18 @@
+<script context="module" lang="ts">
+  // import type { Viewport } from 'kitbook'
+  // override default full-width composition viewport (set width as null for it to be auto-adjusting full-width)
+  // export const viewports: Viewport[] = [
+  //   { width: 600, height: 400 },
+  // ]
+  // at the moment only the first viewport will be shown - updates are coming to show all viewports
+</script>
+
+<script lang="ts">
+  import IntersectionObserver from './IntersectionObserver.svelte'
+</script>
+
+<IntersectionObserver let:intersecting>
+  <div>
+    {intersecting}
+  </div>
+</IntersectionObserver>

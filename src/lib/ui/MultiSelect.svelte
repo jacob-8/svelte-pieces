@@ -80,7 +80,6 @@
   }
 
   function selectOption(option: SelectOption) {
-    console.log({option})
     if (selectedOptions[option.value])
       remove(option.value);
     else

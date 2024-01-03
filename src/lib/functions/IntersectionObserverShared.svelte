@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+  import { onMount, onDestroy, createEventDispatcher } from "svelte";
 
   /**
    * Set to `true` to unobserve the element after it intersects the viewport.
@@ -41,13 +41,16 @@
   onMount(() => {
     childElement = container.firstElementChild as HTMLElement;
     if (!childElement) {
-      return console.error('IntersectionObserver: No child element found')
+      return console.error("IntersectionObserver: No child element found");
     }
 
-    if (typeof IntersectionObserver !== 'undefined') {
+    if (typeof IntersectionObserver !== "undefined") {
       if (!observer) {
+        let isIframe = window !== window.parent;
+        let root = isIframe ? window.document : null; // Use the iframe's document as root if in an iframe
+
         const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
-        console.log({rootMargin})
+        console.log({ rootMargin });
 
         observer = new IntersectionObserver(
           (entries) => {
@@ -57,15 +60,19 @@
             }
           },
           {
+            root,
             rootMargin,
             threshold,
-          }
+          },
         );
       }
 
-      add(childElement, (isIntersecting: boolean) => {
+      const fired_when_interesecting_changes = (isIntersecting: boolean) => {
+        if (once && isIntersecting) remove(childElement);
+        dispatch('intersected');
         intersecting = isIntersecting;
-      });
+      };
+      add(childElement, fired_when_interesecting_changes);
 
       return () => remove(container);
     }
@@ -79,27 +86,25 @@
         bcr.left - left < window.innerWidth;
 
       if (intersecting && once) {
-        window.removeEventListener('scroll', handler);
+        window.removeEventListener("scroll", handler);
       }
     }
 
-    window.addEventListener('scroll', handler);
-    return () => window.removeEventListener('scroll', handler);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
   });
 
   const dispatch = createEventDispatcher<{ intersected: null; hidden: null }>();
   $: if (intersecting === true) {
-    once && remove(container);
-    dispatch('intersected');
     if (intervalMs) {
       interval = setInterval(() => {
         if (intersecting === true) {
-          dispatch('intersected');
+          dispatch("intersected");
         }
       }, intervalMs);
     }
   } else {
-    dispatch('hidden');
+    dispatch("hidden");
   }
 
   onDestroy(() => {
