@@ -50,7 +50,6 @@
         let root = isIframe ? window.document : null; // Use the iframe's document as root if in an iframe
 
         const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
-        console.log({ rootMargin });
 
         observer = new IntersectionObserver(
           (entries) => {
