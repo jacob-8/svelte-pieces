@@ -73,7 +73,7 @@
       };
       add(childElement, fired_when_interesecting_changes);
 
-      return () => remove(container);
+      return () => remove(childElement);
     }
 
     function handler() {
