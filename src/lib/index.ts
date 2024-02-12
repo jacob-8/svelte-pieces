@@ -2,6 +2,7 @@ export { clickoutside } from './actions/clickoutside.js';
 export { longpress } from './actions/longpress.js';
 export { portal } from './actions/portal.js';
 export { srcObject } from './actions/srcObject.js';
+export { visible } from './actions/intersection-observer.js';
 
 export { clamp } from './utils/clamp.js';
 

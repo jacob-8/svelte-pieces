@@ -1,15 +1,11 @@
-/**
- * Add to app.d.ts file:
- * ```
- * declare namespace svelteHTML {
-      interface HTMLAttributes<T> {
-        'on:longpress'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
-        'on:shortpress'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
-      }
-    }
-    ```
- */
-export function longpress(node: Node, duration = 400) {
+import type { ActionReturn } from 'svelte/action';
+
+interface Attributes {
+	'on:shortpress'?: (e: CustomEvent<boolean>) => void;
+	'on:longpress'?: (e: CustomEvent<boolean>) => void;
+}
+
+export function longpress(node: Node, duration = 400): ActionReturn<number, Attributes> {
   let start: number; // for shortpress
   let shortpressEmitted: number; // so touchend and mouseup events don't both emit on touch devices
   let timer; // for longpress

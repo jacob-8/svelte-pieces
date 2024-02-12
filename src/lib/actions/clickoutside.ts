@@ -1,14 +1,10 @@
-/**
- * Add to app.d.ts file:
- * ```
- * declare namespace svelteHTML {
-    interface HTMLAttributes<T> {
-      'on:clickoutside'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
-    }
-  }
-  ```
- */
-export function clickoutside(node: Node) {
+import type { ActionReturn } from 'svelte/action';
+
+interface Attributes {
+	'on:clickoutside'?: (e: CustomEvent<boolean>) => void;
+}
+
+export function clickoutside(node: Node): ActionReturn<undefined, Attributes> {
   const handleClick = (event) => {
     if (node && !node.contains(event.target) && !event.defaultPrevented) {
       node.dispatchEvent(new CustomEvent('clickoutside'));
