@@ -13,6 +13,7 @@
   export let mobileClasses = '';
 
   export let open = false;
+  export let on_close: () => void = undefined
 </script>
 
 <div
@@ -47,7 +48,7 @@
       {side}
       {widthRem}
       {maxWidthPercentage}
-      on:close={() => (open = false)}
+      on:close={on_close}
     >
       <svelte:fragment slot="heading">
         {#if $$slots.mobileTitle}
@@ -56,7 +57,7 @@
               <slot name="mobileTitle" />
             </h3>
             <button
-              on:click={() => (open = false)}
+              on:click={on_close}
               type="button"
               class="text-gray-400 px-3 py-4 flex hover:text-gray-500 focus:outline-none
     focus:text-gray-500 transition ease-in-out duration-150"

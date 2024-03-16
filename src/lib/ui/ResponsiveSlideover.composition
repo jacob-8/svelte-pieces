@@ -1,0 +1,26 @@
+<script lang="ts">
+  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from './Button.svelte';
+  import ResponsiveSlideover from './ResponsiveSlideover.svelte';
+
+  let size: 'sm' | 'md' | 'lg' | 'xl' = 'xl';
+</script>
+
+<ShowHide let:show let:toggle>
+  <Button color="primary" onclick={toggle}>Show Slideover</Button>
+  <Button form="menu" active={size === 'sm'} onclick={() => size = 'sm'}>Size: sm</Button>
+  <Button form="menu" active={size === 'md'} onclick={() => size = 'md'}>Size: md</Button>
+  <Button form="menu" active={size === 'lg'} onclick={() => size = 'lg'}>Size: lg</Button>
+  <Button form="menu" active={size === 'xl'} onclick={() => size = 'xl'}>Size: xl</Button>
+  
+  <ResponsiveSlideover showWidth={size} open={show} on_close={toggle}>
+    <div slot="title">Universal Title</div>
+    <div class="p-3 border-b font-semibold" slot="heading">Universal Heading</div>
+    <div class="p-3 border-b font-semibold" slot="desktopHeading">Desktop Heading</div>
+    <div class="p-3 border-b font-semibold" slot="mobileHeading">Mobile Heading</div>
+    <div class="p-3 hover:bg-gray-100">Menu Item</div>
+    <div class="p-3 hover:bg-gray-100">Menu Item</div>
+    <div class="p-3 hover:bg-gray-100">Menu Item</div>
+    <div class="p-3 hover:bg-gray-100">Menu Item</div>
+  </ResponsiveSlideover>
+</ShowHide>
