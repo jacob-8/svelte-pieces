@@ -42,5 +42,5 @@ export { default as DataList } from './ui/DataList.svelte';
 export { default as MultiSelect } from './ui/MultiSelect.svelte';
 
 export { default as QueryParam } from './stores/QueryParam.svelte';
-export { createPersistedStore } from './stores/persisted.js';
-export { createQueryParamStore, type QueryParamStore } from './stores/queryParam.js';
+export { createPersistedStore } from './stores/persisted-store.js';
+export { createQueryParamStore, type QueryParamStore } from './stores/query-param-store.js';

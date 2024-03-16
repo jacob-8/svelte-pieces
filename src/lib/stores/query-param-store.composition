@@ -1,0 +1,37 @@
+<script lang="ts">
+  import Button from '$lib/ui/Button.svelte';
+  
+  import { createQueryParamStore } from './query-param-store';
+  const item = createQueryParamStore<string | number | boolean | any[] | typeof object>({ key: 'item', log: true, replaceState: true, persist: 'localStorage', 'startWith': 'foo' });
+
+  const object = {
+    foo: 'hi there',
+    bar: {
+      blah: 123,
+      quux: [1, 2, 3],
+    },
+  };
+</script>
+
+<!-- # Query Param Store -->
+
+<!-- Update by changing URL: -->
+<Button href="?compositionName=default">No query param</Button>
+<Button href="?compositionName=default&item=">no value</Button>
+<Button href="?compositionName=default&item=123">nav to 123</Button>
+<Button href="?compositionName=default&item=1234">nav to 1234</Button>
+
+<!-- Update by setting store value: -->
+<Button onclick={() => ($item = '')}>Set to empty string</Button>
+<Button onclick={() => ($item = 12345)}>Set to 12345</Button>
+<Button onclick={() => ($item = 123456)}>Set to 123456</Button>
+<Button onclick={() => ($item = 0)}>Set to 0</Button>
+<Button onclick={() => ($item = object)}>Set to object</Button>
+<Button onclick={() => ($item = [1, 'hi', object])}>Set to array w/ object</Button>
+<Button onclick={() => ($item = 'Hello world? & some = that')}>Set to String with characters needing escaped</Button>
+<Button onclick={() => ($item = null)}>Set to null</Button>
+<Button onclick={() => ($item = undefined)}>Set to undefined</Button>
+<Button onclick={() => ($item = false)}>Set to false</Button>
+<Button onclick={() => item.remove()}>Remove function</Button>
+
+<pre>{JSON.stringify($item, null, 2)}</pre>

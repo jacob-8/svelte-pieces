@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, onDestroy } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
-  import { createQueryParamStore, type QueryParamStoreOptions } from './queryParam';
+  import { createQueryParamStore, type QueryParamStoreOptions } from './query-param-store';
 
   export let key: string;
   export let replaceState = true;

@@ -1,0 +1,12 @@
+<script lang="ts">
+  import { createPersistedStore } from '$lib';
+  import Button from '$lib/ui/Button.svelte';
+
+  const showSomething = createPersistedStore<boolean>('myCustomKeyName', true, true);
+  const showSomethingElse = createPersistedStore<boolean>('myCustomKeyName2', true, true);
+</script>
+
+{$showSomething}
+<Button onclick={() => ($showSomething = !$showSomething)}>Toggle showSomething</Button>,
+{$showSomethingElse}
+<Button onclick={() => ($showSomethingElse = !$showSomethingElse)}>Toggle showSomethingElse</Button>
