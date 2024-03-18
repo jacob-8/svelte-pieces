@@ -1,119 +1,118 @@
-import { writable, type Readable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
-import { decodeParam, encodeParam } from './url-helpers';
 
-export interface QueryParamStore<T> extends Readable<T> {
-  set: (value: any) => void;
+export interface QueryParamStore<T> extends Writable<T> {
   remove: () => void;
 }
 
 export interface QueryParamStoreOptions<T> {
   key: string;
-  replaceState?: boolean;
   startWith?: T;
-  log?: boolean;
+  replaceState?: boolean;
   persist?: 'localStorage' | 'sessionStorage';
+  storagePrefix?: string;
+  log?: boolean;
 }
 
-export function createQueryParamStore<T>(
-  opts: QueryParamStoreOptions<T> = {
-    key: 'queryParam',
-    replaceState: true,
-  }
-): QueryParamStore<T> {
-  const { key, startWith, log, replaceState, persist } = opts;
+const stringify = (value) => {
+  if (typeof value === 'undefined' || value === null) return undefined;
+  if (typeof value === 'string') return value;
+  return JSON.stringify(value);
+};
 
-  const updateQueryParam = (value: any) => {
+const parse = (value: string) => {
+  if (typeof value === 'undefined') return undefined;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value; // if the original input was just a string (and never JSON stringified), it will throw an error so just return the string
+  }
+};
+
+export function createQueryParamStore<T>(opts: QueryParamStoreOptions<T>) {
+  const { key, log, persist } = opts;
+  const replaceState = typeof opts.replaceState === 'undefined' ? true : opts.replaceState;
+  const storageKey = `${opts.storagePrefix || ''}${key}`
+
+  let storage: Storage = undefined
+  if (typeof window !== 'undefined') {
+    if (persist === 'localStorage')
+      storage = localStorage;
+    if (persist === 'sessionStorage')
+      storage = sessionStorage;
+  }
+
+  const setQueryParam = (value) => {
     if (typeof window === 'undefined') return; // safety check in case store value is assigned via $: call server side
     if (value === undefined || value === null) return removeQueryParam();
-    // from https://github.com/sveltejs/kit/issues/969
-    const url = new URL(window.location.href);
-    url.searchParams.set(key, encodeParam(value));
-
-    if (replaceState) {
-      history.replaceState({}, '', url);
-      setStoreValue(value);
-    } else {
-      goto(url.toString(), { noScroll: true }); // breaks input focus
-    }
-
-    log && console.log(`user action changed: ${key} to ${value}`);
+    const {hash} = window.location
+    const searchParams = new URLSearchParams(window.location.search)
+    searchParams.set(key, stringify(value));
+    goto(`?${searchParams}${hash}`, { keepFocus: true, noScroll: true, replaceState });
+    if (log) console.info(`user action changed: ${key} to ${value}`);
   };
 
+  const updateQueryParam = (fn: (value: T) => T) => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const value = searchParams.get(key);
+    const parsed_value = parse(value) as T;
+    setQueryParam(fn(parsed_value));
+  }
+
   const removeQueryParam = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete(key);
-
-    if (replaceState) {
-      history.replaceState({}, '', url);
-      setStoreValue(null);
-    } else {
-      goto(url.toString(), { noScroll: true }); // breaks input focus
-    }
-
-    log && console.log(`user action removed: ${key}`);
+    const {hash} = window.location
+    const searchParams = new URLSearchParams(window.location.search)
+    searchParams.delete(key);
+    goto(`?${searchParams}${hash}`, { keepFocus: true, noScroll: true, replaceState });
+    if (log) console.info(`user action removed: ${key}`);
   };
 
   const setStoreValue = (value: string) => {
-    const properlyTypedValue = decodeParam(value) as T;
-    typeof window !== 'undefined' && localStorage.setItem(key, JSON.stringify(properlyTypedValue));
-    log && console.log(`URL set ${key} to ${properlyTypedValue}`);
-    set(properlyTypedValue);
+    const parsed_value = parse(value) as T;
+    set(parsed_value);
+    if (log) console.info(`URL set ${key} to ${parsed_value}`);
+    storage?.setItem(storageKey, JSON.stringify(parsed_value));
+    if (log && storage) console.info({[storageKey + '_to_cache']: parsed_value});
   };
 
   let firstUrlCheck = true;
 
   const start = () => {
-    const _teardown = page.subscribe(({ url: { searchParams } }) => {
+    const unsubscribe_from_page_store = page.subscribe(({ url: { searchParams } }) => {
       let value = searchParams.get(key);
 
-      // Subsequent URL changes
+      // Set store value from url - skipped on first load
       if (!firstUrlCheck) return setStoreValue(value);
       firstUrlCheck = false;
 
-      // URL load
-      // 1st Priority: query param
-      // @ts-ignore
+      // 1st Priority: check url query param for value
       if (value !== undefined && value !== null && value !== '') return setStoreValue(value);
 
-      // 2nd Priority: local/sessionStorage
       if (typeof window === 'undefined') return;
-      if (persist === 'localStorage') {
-        value = JSON.parse(localStorage.getItem(key));
-        log && console.log(`cached: ${key} is ${value}`);
+
+      // 2nd Priority: check localStorage/sessionStorage for value
+      if (persist) {
+        value = JSON.parse(storage.getItem(storageKey));
+        if (log) console.info({[storageKey + '_from_cache']: value});
       }
-      if (persist === 'sessionStorage') {
-        value = JSON.parse(sessionStorage.getItem(key));
-        log && console.log(`cached: ${key} is ${value}`);
-      }
-      if (value) return updateQueryParam(value);
+
+      if (value) return setQueryParam(value);
     });
 
-    // Unsubscribes from page store when query param store is no longer in use
-    return () => _teardown();
+    return () => unsubscribe_from_page_store();
   };
 
-  // 3rd Priority: startWith won't be overridden if query param nor local/sessionStorage key is set
-  const store = writable<T>(startWith, start);
+  // 3rd Priority: use startWith if no query param in url nor storage value found
+  const store = writable<T>(opts.startWith, start);
   const { subscribe, set } = store;
 
   return {
     subscribe,
-    set: updateQueryParam,
+    set: setQueryParam,
+    update: updateQueryParam,
     remove: removeQueryParam,
   };
 }
 
-// const newValues = {}
-// for (const key of page.url.searchParams.keys()) {
-//   console.log(page.url.searchParams.get(key));
-//   newValues[key] = page.url.searchParams.get(key);
-//   set(newValues)
-// }
-
-// window.addEventListener('popstate', (e) => {
-//   console.log(e);
-//   const { searchParams } = new URL(window.location.href);
-//   console.log(`${searchParams.get(key)}, ${e.state}`);
-// });
+// SvelteKit Goto dicussion https://github.com/sveltejs/kit/issues/969
