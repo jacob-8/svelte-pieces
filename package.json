@@ -1,7 +1,7 @@
 {
   "name": "svelte-pieces",
   "type": "module",
-  "version": "2.0.0-next.9",
+  "version": "2.0.0-next.10",
   "description": "Useful Svelte UI pieces for building web apps",
   "author": "Jacob Bowdoin",
   "license": "MIT",
