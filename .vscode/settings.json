@@ -11,7 +11,6 @@
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
     "**/node_modules/**/*",
-    "**/package/**/*",
     "**/.svelte-kit/**/*",
     "**/dist/**/*"
   ],

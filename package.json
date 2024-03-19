@@ -54,6 +54,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold error --diagnostic-sources js,svelte --compiler-warnings a11y-no-static-element-interactions:ignore",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "test": "vitest",
+    "check-packages": "pnpm update --interactive --recursive --latest",
     "release": "bumpp"
   },
   "svelte": "./dist/index.js",
