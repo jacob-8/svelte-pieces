@@ -84,10 +84,16 @@ export function createQueryParamStore<T>(opts: QueryParamStoreOptions<T>) {
   };
 
   let firstUrlCheck = true;
+  let current_params_value: string
 
   const start = () => {
     const unsubscribe_from_page_store = page.subscribe(({ url: { searchParams } }) => {
       let value = searchParams.get(key);
+      if (current_params_value && value === current_params_value) {
+        if (log) console.info('query params are same value, skipping set')
+        return // don't emit store change if page navigation happened with same query params
+      } 
+      current_params_value = value
 
       // Set store value from url - skipped on first load
       if (!firstUrlCheck) return setStoreValue(value);
