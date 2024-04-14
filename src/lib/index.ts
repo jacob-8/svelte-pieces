@@ -19,6 +19,7 @@ export { default as Store } from './functions/Store.svelte';
 export { default as ReactiveSet } from './functions/ReactiveSet.svelte';
 export { default as IntersectionObserver } from './functions/IntersectionObserver.svelte';
 export { default as IntersectionObserverShared } from './functions/IntersectionObserverShared.svelte';
+export { loadScriptOnce, loadStylesOnce } from './functions/loadOnce.js';
 
 export { default as QrCode } from './media/QrCode.svelte';
 

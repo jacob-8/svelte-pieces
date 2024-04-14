@@ -34,10 +34,10 @@ function parse(value: string) {
   }
 }
 
-export function createQueryParamStore<T>(opts: QueryParamStoreOptions<T>) {
-  const { key, log, persist, startWith, cleanFalseValues } = opts;
-  const replaceState = typeof opts.replaceState === 'undefined' ? true : opts.replaceState;
-  const storageKey = `${opts.storagePrefix || ''}${key}`
+export function createQueryParamStore<T>(options: QueryParamStoreOptions<T>) {
+  const { key, log, persist, startWith, cleanFalseValues } = options;
+  const replaceState = typeof options.replaceState === 'undefined' ? true : options.replaceState;
+  const storageKey = `${options.storagePrefix || ''}${key}`
 
   let storage: Storage = undefined
   if (typeof window !== 'undefined') {
