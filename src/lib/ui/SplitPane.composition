@@ -1,0 +1,16 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 400 }],
+  })
+</script>
+
+<script lang="ts">
+  import SplitPane from './SplitPane.svelte'
+</script>
+
+<SplitPane pos={30}>
+  <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>
+  <section class="text-center" slot="b">Slot B</section>
+</SplitPane>

@@ -1,0 +1,18 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 100 }],
+  })
+</script>
+
+<script lang="ts">
+  import Header from '$lib/shell/Header.svelte'
+  import Button from '$lib/ui/Button.svelte'
+</script>
+
+<Header>
+  <div slot="left" class="overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
+    <Button form="text" onclick={() => alert('menu opened')} class="!text-lg !font-semibold">= Bahasa Lani</Button>
+  </div>
+</Header>

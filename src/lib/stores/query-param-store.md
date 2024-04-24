@@ -15,12 +15,13 @@
 
 ```svelte
 <script lang="ts">
-  import { createQueryParamStore } from 'svelte-pieces';
-  const item = createQueryParamStore({ key: 'item'});
+  import { createQueryParamStore } from 'svelte-pieces'
+
+  const item = createQueryParamStore({ key: 'item' })
 </script>
 <pre>{JSON.stringify($item, null, 2)}</pre>
 <a href="/stores/0-query-param?item=123">Change store by navigating to 123</a>
-<button on:click={() => ($item = '12345')}>Set to 12345</button>
+<button type="button" on:click={() => ($item = '12345')}>Set to 12345</button>
 ```
 
 - If desiring to use this sitewide, you can create a store in your layout file module context and export it from there, or set a contextual store that you can then get in child components.

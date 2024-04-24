@@ -1,34 +1,34 @@
 <script lang="ts">
   // From https://github.com/collardeau/svelte-headroom
-  export let duration = '300ms';
-  export let offset = 0;
-  export let tolerance = 0;
-  export let zIndex = 1;
-  export let direction: 'up' | 'down' = 'down';
-  export let bottom = false;
+  export let duration = '300ms'
+  export let offset = 0
+  export let tolerance = 0
+  export let zIndex = 1
+  export let direction: 'up' | 'down' = 'down'
+  export let bottom = false
 
-  let headerClass = 'pin';
-  let y = 0;
-  let lastY = 0;
+  let headerClass = 'pin'
+  let y = 0
+  let lastY = 0
 
   function deriveClass(y = 0, scrolled = 0) {
-    if (y < offset) return 'pin';
-    if (!scrolled || Math.abs(scrolled) < tolerance) return headerClass;
-    const dir = scrolled < 0 ? 'down' : 'up';
-    if (dir !== direction) return 'pin';
-    if (dir === direction) return 'unpin';
-    return headerClass;
+    if (y < offset) return 'pin'
+    if (!scrolled || Math.abs(scrolled) < tolerance) return headerClass
+    const dir = scrolled < 0 ? 'down' : 'up'
+    if (dir !== direction) return 'pin'
+    if (dir === direction) return 'unpin'
+    return headerClass
   }
   function updateClass(y = 0) {
-    const scrolledPxs = lastY - y;
-    const result = deriveClass(y, scrolledPxs);
-    lastY = y;
-    return result;
+    const scrolledPxs = lastY - y
+    const result = deriveClass(y, scrolledPxs)
+    lastY = y
+    return result
   }
-  function action(node) {
-    node.style.transitionDuration = duration;
+  function action(node: HTMLElement) {
+    node.style.transitionDuration = duration
   }
-  $: headerClass = updateClass(y);
+  $: headerClass = updateClass(y)
 </script>
 
 <svelte:window bind:scrollY={y} />

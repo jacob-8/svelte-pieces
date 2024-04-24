@@ -1,0 +1,20 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import { toast } from './Toasts.svelte'
+  import Button from '$lib/ui/Button.svelte'
+
+  const message = 'Hello world'
+  const duration = 3000
+</script>
+
+<Button onclick={() => toast(message, duration)}>Toast</Button>
+{#await import('./Toasts.svelte') then { default: Toasts }}
+  <Toasts />
+{/await}

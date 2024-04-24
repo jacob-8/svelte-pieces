@@ -1,0 +1,30 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 500 }],
+  })
+</script>
+
+<script lang="ts">
+  import ActionSheet from './ActionSheet.svelte'
+  import { Button } from '$lib'
+  import ShowHide from '$lib/functions/ShowHide.svelte'
+</script>
+
+<ShowHide let:show let:toggle>
+  <Button size="sm" onclick={toggle} form="filled">Toggle Show</Button>
+  <ActionSheet open={show}>
+    <p>This needs a max-height at which point it will scroll - this component is in todo state</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+    <p>Content</p>
+  </ActionSheet>
+</ShowHide>

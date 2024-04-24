@@ -2,15 +2,15 @@
   import Menu from './Menu.svelte'
 </script>
 
-  <div class="relative bg-white p-3 w-full" style="height: 250px;">
-    <Menu portalTarget="body">
-      <div class="px-4 py-2 text-xs font-semibold text-gray-600">John Smith</div>
-      <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">j@jim.com</div>
-      <a href="/admin">
-        Admin Panel
-        <span class="i-fa-solid-key" />
-      </a>
-      <a href="/account"> Settings </a>
-      <button> Log out </button>
-    </Menu>
-  </div>
+<div class="relative bg-white p-3 w-full" style="height: 250px;">
+  <Menu portalTarget="body">
+    <div class="px-4 py-2 text-xs font-semibold text-gray-600">John Smith</div>
+    <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">j@jim.com</div>
+    <a href="/admin">
+      Admin Panel
+      <span class="i-fa-solid-key" />
+    </a>
+    <a href="/account"> Settings </a>
+    <button type="button"> Log out </button>
+  </Menu>
+</div>

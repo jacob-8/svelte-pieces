@@ -1,0 +1,21 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import Button from '$lib/ui/Button.svelte'
+
+  let text = 'sample message'
+</script>
+
+<input bind:value={text} />
+<Button
+  onclick={async () => {
+    navigator.clipboard.writeText(text)
+    const clip = await navigator.clipboard.readText()
+    alert(`copied: ${clip}`)
+  }}>Copy</Button>

@@ -1,34 +1,34 @@
 <script lang="ts">
   export let onclick: (
-      e: MouseEvent & {
-        currentTarget: EventTarget & HTMLButtonElement;
-      }
-    ) => any = undefined,
-    href = undefined,
-    type: 'button' | 'submit' = 'button',
-    target: '_blank' = undefined,
-    size: 'sm' | 'md' | 'lg' = 'md',
-    form: 'outline' | 'filled' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
-    color: 'red' | 'orange' | 'green' | 'black' | 'white' | 'primary' = 'primary',
-    disabled = false,
-    active = false,
-    showExternalLinkIcon = false,
-    title: string = undefined;
+    e: MouseEvent & {
+      currentTarget: EventTarget & HTMLButtonElement
+    }
+  ) => any = undefined
+  export let href = undefined
+  export let type: 'button' | 'submit' = 'button'
+  export let target: '_blank' = undefined
+  export let size: 'sm' | 'md' | 'lg' = 'md'
+  export let form: 'outline' | 'filled' | 'simple' | 'link' | 'menu' | 'text' = 'outline'
+  export let color: 'red' | 'orange' | 'green' | 'black' | 'white' | 'primary' = 'primary'
+  export let disabled = false
+  export let active = false
+  export let showExternalLinkIcon = false
+  export let title: string = undefined
+  export let loading = false
 
-  $: disable = disabled || loading;
-  $: fill = form === 'outline' ? 'outlined' : form;
+  $: disable = disabled || loading
+  $: fill = form === 'outline' ? 'outlined' : form
 
-  export let loading = false;
   async function runWithSpinner(event) {
     if (onclick) {
-      loading = true;
+      loading = true
       try {
-        await onclick(event);
+        await onclick(event)
       } catch (err) {
-        console.error(err);
-        alert(err);
+        console.error(err)
+        alert(err)
       }
-      loading = false;
+      loading = false
     }
   }
 </script>
@@ -40,8 +40,7 @@
     {target}
     rel={target === '_blank' ? 'noopener noreferrer' : ''}
     class:active
-    class="{$$props.class} {fill} {size} {color} text-center inline-block"
-  >
+    class="{$$props.class} {fill} {size} {color} text-center inline-block">
     <slot />
     {#if showExternalLinkIcon}
       <span class="i-tabler-external-link" style="vertical-align: -2px;" />
@@ -55,8 +54,7 @@
     {type}
     {title}
     on:click={runWithSpinner}
-    disabled={disable}
-  >
+    disabled={disable}>
     <slot />
     {#if loading}
       <span class="i-gg-spinner animate-spin ml-1 -mr-1" style="vertical-align: -2px;" />

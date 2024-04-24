@@ -1,0 +1,68 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 1500 }],
+  })
+</script>
+
+<script lang="ts">
+  import Button from './Button.svelte'
+
+  const colors = ['primary', 'red', 'orange', 'green', 'black', 'white'] as const
+</script>
+
+<div class="font-semibold mb-5">Stacked Menu</div>
+<div class="flex flex-col p-2 w-96">
+  <Button href="/" form="menu">Home</Button>
+  <Button href="/" form="menu" active={true}>About</Button>
+  <Button href="/" form="menu">Settings</Button>
+  <Button href="/" form="link">Terms</Button>
+</div>
+
+<div class="font-semibold my-5">External link size</div>
+<Button href="/" size="sm" target="_blank">sm link</Button>
+<Button href="/" target="_blank">link</Button>
+<Button href="/" size="lg" target="_blank">lg link</Button>
+
+<div class="font-semibold my-5">forms</div>
+<Button href="/">Outline link</Button>
+<Button form="filled" href="/">filled link</Button>
+<Button form="simple" href="/">Simple link</Button>
+
+<div class="font-semibold my-5">colors</div>
+{#each colors as color}
+  <div class="my-1 flex justify-around">
+    <Button onclick={() => alert('Clicked')} {color}>{color}</Button>
+    &nbsp;
+    <Button href="/" {color} form="filled">{color}</Button>
+    &nbsp;
+    <Button onclick={() => alert('Clicked')} {color} form="simple">{color}</Button>
+  </div>
+{/each}
+
+<div class="font-semibold my-5">white</div>
+<div class="bg-gray-900 p-2 text-center">
+  <Button onclick={() => {}} color="white" form="filled" size="lg">filled white</Button>
+</div>
+
+<div class="font-semibold my-5">loading state</div>
+<Button
+  onclick={async () =>
+    await new Promise((resolve) => {
+      alert('Clicked')
+      setTimeout(resolve, 1000)
+    })}>1-second Log click</Button>
+<Button onclick={() => alert('Should never show')} loading>Save</Button>
+
+<div class="font-semibold my-5">disabled click</div>
+<Button disabled onclick={() => alert('Should never show')}>Disabled button</Button>
+
+<div class="font-semibold my-5">lg click</div>
+<Button onclick={() => alert('Clicked')} size="lg">Alert me</Button>
+
+<div class="font-semibold my-5">ctrl click</div>
+<Button onclick={({ ctrlKey }) => console.info({ ctrlKey })}>Log click with Ctrl</Button>
+
+<div class="font-semibold my-5">text</div>
+<Button form="text">Log In</Button>

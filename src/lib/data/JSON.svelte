@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Button from '../ui/Button.svelte';
-  import ShowHide from '../functions/ShowHide.svelte';
-  export let obj: Record<string, any>;
+  import Button from '../ui/Button.svelte'
+  import ShowHide from '../functions/ShowHide.svelte'
+
+  export let obj: Record<string, any>
 
   function string_and_colorize(obj: Record<string, any>): string {
     return JSON.stringify(obj, null, 2)
@@ -11,20 +12,20 @@
       .replace(
         /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
         (match) => {
-          var color = 'darkorange'; // number'
-          if (/^"/.test(match)) {
-            if (/:$/.test(match))
-              color = 'red'; // key
+          let color = 'darkorange' // number'
+          if (match.startsWith('"')) {
+            if (match.endsWith(':'))
+              color = 'red' // key
             else
-              color = 'green'; // string
+              color = 'green' // string
           } else if (/true|false/.test(match)) {
-            color = 'blue'; // boolean
+            color = 'blue' // boolean
           } else if (/null/.test(match)) {
-            color = 'magenta'; // null
+            color = 'magenta' // null
           }
-          return `<span style="color:${color}">${match}</span>`;
-        }
-      );
+          return `<span style="color:${color}">${match}</span>`
+        },
+      )
   }
 </script>
 

@@ -1,0 +1,29 @@
+<script>
+  import ReactiveSet from '../functions/ReactiveSet.svelte'
+  import BadgeArrayEmit from './BadgeArrayEmit.svelte'
+
+  const canEdit = true
+  const minimum = 0
+</script>
+
+<ReactiveSet
+  input={['A Tale of Four Cities', 'www.google.com']}
+  let:value={editedBooks}
+  let:add
+  let:remove>
+  <BadgeArrayEmit
+    strings={editedBooks}
+    {canEdit}
+    {minimum}
+    addMessage="Add Book"
+    on:itemclicked={e => console.info('itemclicked', e.detail)}
+    on:itemremoved={(e) => {
+      remove(e.detail.value)
+    }}
+    on:additem={() => {
+      const string = prompt('What would you like to add?')
+      if (string) {
+        add(string.trim())
+      }
+    }} />
+</ReactiveSet>

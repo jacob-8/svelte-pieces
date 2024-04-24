@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { clickoutside } from '../actions/clickoutside';
-  import ShowHide from '../functions/ShowHide.svelte';
-  import Button from '../ui/Button.svelte';
-  import Avatar from './Avatar.svelte';
-  import Menu from './Menu.svelte';
-  import type { IUser } from './user.interface';
-  export let user: IUser = undefined;
+  import { clickoutside } from '../actions/clickoutside'
+  import ShowHide from '../functions/ShowHide.svelte'
+  import Button from '../ui/Button.svelte'
+  import Avatar from './Avatar.svelte'
+  import Menu from './Menu.svelte'
+  import type { IUser } from './user.interface'
+
+  export let user: IUser = undefined
 </script>
 
 <header>
@@ -17,7 +18,7 @@
   {:else if $$slots.left}
     <slot name="left" />
   {:else}
-    <Button form="text" href="/" class="!text-lg !font-semibold">Sveed</Button>
+    <Button form="text" href="/" class="!text-lg !font-semibold">Company</Button>
   {/if}
   <div class="w-1 flex-grow" />
   <Button form="text" href="/">About</Button>
@@ -37,7 +38,7 @@
               <span class="i-fa-solid-key" />
             </a>
             <a href="/account"> Settings </a>
-            <button> Log out </button>
+            <button type="button"> Log out </button>
           </Menu>
         {/if}
       </div>

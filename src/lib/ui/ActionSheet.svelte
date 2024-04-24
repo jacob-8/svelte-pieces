@@ -1,47 +1,47 @@
 <script lang="ts">
-  export let fullscreen = false;
-  export let open = false;
-  export let threshold = 0.3;
-  export let backdropOpacity = 0.5;
-  export let speed = 0.2;
+  export let fullscreen = false
+  export let open = false
+  export let threshold = 0.3
+  export let backdropOpacity = 0.5
+  export let speed = 0.2
 
-  let dialog;
-  let backdrop;
-  let startX;
-  let startY;
-  let direction;
-  const touch = (e) => (e.changedTouches ? e.changedTouches[0] : e);
-  const deltaX = (e) => startX - touch(e).clientX;
-  const deltaY = (e) => startY - touch(e).clientY;
+  let dialog
+  let backdrop
+  let startX
+  let startY
+  let direction
+  const touch = e => (e.changedTouches ? e.changedTouches[0] : e)
+  const deltaX = e => startX - touch(e).clientX
+  const deltaY = e => startY - touch(e).clientY
 
   const touchStart = (e) => {
-    startX = touch(e).clientX;
-    startY = touch(e).clientY;
-  };
+    startX = touch(e).clientX
+    startY = touch(e).clientY
+  }
   const touchMove = (e) => {
     if (!direction) {
-      direction = Math.abs(deltaY(e)) > Math.abs(deltaX(e)) ? 'vertical' : 'horizontal';
+      direction = Math.abs(deltaY(e)) > Math.abs(deltaX(e)) ? 'vertical' : 'horizontal'
     }
     if (deltaY(e) < 0 && direction === 'vertical') {
-      dialog.style.setProperty('--b', deltaY(e) + 'px');
-      backdrop.style.setProperty('--o', (1 + deltaY(e) / dialog.clientHeight) * backdropOpacity);
+      dialog.style.setProperty('--b', `${deltaY(e)}px`)
+      backdrop.style.setProperty('--o', (1 + deltaY(e) / dialog.clientHeight) * backdropOpacity)
     }
-  };
+  }
   const touchEnd = (e) => {
     if (direction === 'vertical') {
-      open = -deltaY(e) / dialog.clientHeight < threshold;
+      open = -deltaY(e) / dialog.clientHeight < threshold
     }
-    startY = null;
-    direction = null;
-  };
+    startY = null
+    direction = null
+  }
 
   $: if (dialog && backdrop) {
-    dialog.style.setProperty('--s', speed + 's');
-    backdrop.style.setProperty('--s', speed + 's');
+    dialog.style.setProperty('--s', `${speed}s`)
+    backdrop.style.setProperty('--s', `${speed}s`)
   }
   $: if (dialog && backdrop && !direction) {
-    dialog.style.setProperty('--b', open ? '0px' : -dialog.clientHeight + 'px');
-    backdrop.style.setProperty('--o', open ? backdropOpacity : 0);
+    dialog.style.setProperty('--b', open ? '0px' : `${-dialog.clientHeight}px`)
+    backdrop.style.setProperty('--o', open ? backdropOpacity : 0)
   }
 </script>
 
@@ -50,8 +50,7 @@
   class="backdrop"
   data-smooth={!startY}
   data-open={open}
-  on:click={() => (open = false)}
-/>
+  on:click={() => (open = false)} />
 
 <div
   bind:this={dialog}
@@ -60,8 +59,7 @@
   data-smooth={!startY}
   on:touchstart|self|preventDefault={touchStart}
   on:touchmove|self|preventDefault={touchMove}
-  on:touchend|self|preventDefault={touchEnd}
->
+  on:touchend|self|preventDefault={touchEnd}>
   <slot />
 </div>
 

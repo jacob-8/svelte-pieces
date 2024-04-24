@@ -1,0 +1,40 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import DetectUrl from './DetectUrl.svelte'
+  import Badge from '$lib/ui/Badge.svelte'
+</script>
+
+<DetectUrl string="Bob McNary" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="Google.com" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="Source: <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="http://google.com" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="www.google.com" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="https://google.com" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
+
+<DetectUrl string="https://www.google.com" let:display let:href>
+  <Badge {href} target="_blank">{display}</Badge>
+</DetectUrl>
