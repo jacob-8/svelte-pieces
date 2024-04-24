@@ -1,15 +1,15 @@
-import type { Variants } from 'kitbook';
-import type Component from './BadgeArray.svelte';
+import type { DeprecatedVariant } from 'kitbook'
+import type Component from './BadgeArray.svelte'
 
-const books = ['Lord of the Rings', 'www.books.com'];
+const books = ['Lord of the Rings', 'www.books.com']
 
-export const variants: Variants<Component> = [
+export const variants: DeprecatedVariant<Component>[] = [
   {
     name: 'Basic display',
     props: {
       strings: books,
-      promptMessage: "What is the book name?",
-      addMessage: "Add Book"
+      promptMessage: 'What is the book name?',
+      addMessage: 'Add Book',
     },
   },
   // rtl
@@ -18,23 +18,20 @@ export const variants: Variants<Component> = [
     props: {
       canEdit: true,
       strings: books,
-      promptMessage: "What is the book name?",
-      addMessage: "Add Book"
+      promptMessage: 'What is the book name?',
+      addMessage: 'Add Book',
     },
   },
   // editable rtl
   {
-    name: "handles strings",
+    name: 'handles strings',
     props: {
-      strings: "How about this?" as any as Array<string>,
-      promptMessage: "Let's see how this works... Add something",
-      addMessage: "Add Something"
-    }
-  }
+      strings: 'How about this?' as any as string[],
+      promptMessage: 'Let\'s see how this works... Add something',
+      addMessage: 'Add Something',
+    },
+  },
 ]
 
 // automatically log events
 // on:valueupdated={(e) => console.log('valueupdated', e.detail)}
-
-
-

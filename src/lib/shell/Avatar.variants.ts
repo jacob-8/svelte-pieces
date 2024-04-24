@@ -1,7 +1,7 @@
-import type { Variants } from 'kitbook';
-import type Component from './Avatar.svelte';
+import type { DeprecatedVariant } from 'kitbook'
+import type Component from './Avatar.svelte'
 
-export const variants: Variants<Component> = [
+export const variants: DeprecatedVariant<Component>[] = [
   {
     name: 'image',
     props: {
@@ -10,7 +10,7 @@ export const variants: Variants<Component> = [
         email: 'b@gc.com',
         photoURL:
           'https://lh5.googleusercontent.com/-qCXZXfIkRQ8/AAAAAAAAAAI/AAAAAAAAACc/wAdH8yns3QQ/photo.jpg',
-      }
+      },
     },
   },
   {
@@ -21,23 +21,25 @@ export const variants: Variants<Component> = [
         email: 'b@gc.com',
         photoURL:
           'https://broken-link.broken.jpg',
-      }
+      },
     },
   },
   {
     name: 'full name',
     props: {
       user: {
-        displayName: 'John Smith', email: 'b@gc.com',
-      }
+        displayName: 'John Smith',
+        email: 'b@gc.com',
+      },
     },
   },
   {
     name: 'single name',
     props: {
       user: {
-        displayName: 'John', email: 'b@gc.com',
-      }
+        displayName: 'John',
+        email: 'b@gc.com',
+      },
     },
   },
   {
@@ -45,7 +47,7 @@ export const variants: Variants<Component> = [
     props: {
       user: {
         // email: 'b@gc.com',
-      }
+      },
     },
   },
 ]
