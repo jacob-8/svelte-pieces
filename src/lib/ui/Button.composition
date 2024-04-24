@@ -43,7 +43,7 @@
 
 <div class="font-semibold my-5">white</div>
 <div class="bg-gray-900 p-2 text-center">
-  <Button onclick={() => {}} color="white" form="filled" size="lg">filled white</Button>
+  <Button onclick={() => alert('Clicked')} color="white" form="filled" size="lg">filled white</Button>
 </div>
 
 <div class="font-semibold my-5">loading state</div>

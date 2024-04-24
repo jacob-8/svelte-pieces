@@ -7,10 +7,9 @@
 </script>
 
 <script lang="ts">
-	import Store from './Store.svelte'
+  import Store from './Store.svelte'
 
-	let value = 'world'
-
+  let value = 'world'
 </script>
 
 <Store startWith="hello" let:set let:store={text}>
@@ -24,8 +23,8 @@
   <div>{text}</div>
 </Store>
 
-<hr>
+<hr />
 
-Two-way binding for comparison:<br>
+Two-way binding for comparison:<br />
 <input type="text" bind:value />
-	<div>{value}</div>
+<div>{value}</div>
