@@ -1,6 +1,6 @@
 // @ts-check
 import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import UnoCSS from '@unocss/svelte-scoped/preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -21,12 +21,6 @@ const config = {
   onwarn: (warning, handler) => {
     if (warning.code.startsWith('a11y-')) return
     handler(warning)
-  },
-
-  vitePlugin: {
-    inspector: {
-      holdMode: true,
-    }
   },
 };
 
