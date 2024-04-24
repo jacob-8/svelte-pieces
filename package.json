@@ -54,6 +54,9 @@
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold error --diagnostic-sources js,svelte --compiler-warnings a11y-no-static-element-interactions:ignore",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "test": "vitest",
+    "lint": "eslint . --cache --quiet",
+    "lint:fix": "eslint . --cache --fix",
+    "lint:inspect": "eslint --inspect-config",
     "check-packages": "pnpm update --interactive --recursive --latest",
     "release": "bumpp"
   },
@@ -62,23 +65,36 @@
     "svelte": "^3.55.0 || ^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.113",
-    "@sveltejs/adapter-auto": "2.1.0",
-    "@sveltejs/kit": "1.24.1",
-    "@sveltejs/package": "2.2.2",
+    "@antfu/eslint-config": "2.13.3",
+    "@iconify/json": "^2.2.203",
+    "@sveltejs/adapter-auto": "3.2.0",
+    "@sveltejs/kit": "2.5.7",
+    "@sveltejs/package": "2.3.1",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@testing-library/jest-dom": "^5.16.5",
-    "@types/youtube": "^0.0.47",
-    "@unocss/svelte-scoped": "^0.55.7",
-    "bumpp": "^9.2.0",
-    "kitbook": "1.0.0-beta.23",
-    "publint": "^0.2.2",
-    "svelte": "^4.2.10",
-    "svelte-check": "^3.5.1",
-    "svelte2tsx": "^0.6.21",
+    "@typescript-eslint/eslint-plugin": "7.7.1",
+    "@unocss/svelte-scoped": "^0.59.4",
+    "bumpp": "^9.4.0",
+    "eslint": "^9.1.1",
+    "eslint-plugin-svelte": "^2.38.0",
+    "eslint-plugin-svelte-stylistic": "^0.0.4",
+    "kitbook": "1.0.0-beta.28",
+    "lint-staged": "^15.2.2",
+    "publint": "^0.2.7",
+    "simple-git-hooks": "^2.11.1",
+    "svelte": "^4.2.15",
+    "svelte-check": "^3.6.9",
+    "svelte2tsx": "^0.7.6",
     "tslib": "^2.6.2",
-    "typescript": "^5.2.2",
-    "unocss": "^0.55.7",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.4"
+    "typescript": "^5.4.5",
+    "unocss": "^0.59.4",
+    "vite": "^5.2.10",
+    "vitest": "^1.5.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

@@ -1,0 +1,13 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 100 }],
+  })
+</script>
+
+<script lang="ts">
+  import Header from '$lib/shell/Header.svelte'
+</script>
+
+<Header>About page that has a Really Quite Ridiculously Long Page Name</Header>

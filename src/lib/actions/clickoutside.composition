@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clickoutside } from './clickoutside';
+  import { clickoutside } from './clickoutside'
 </script>
 
-<div class="m-10 p-5 bg-red-300" use:clickoutside on:clickoutside={() => alert('clicked outside')}>Click outside me</div>
+<div class="m-10 p-5 bg-red-300" use:clickoutside on:clickoutside={() => alert('clicked outside')}>Click outside me to pop up alert</div>

@@ -1,40 +1,30 @@
-import type { Variants } from 'kitbook';
-import type Component from './BadgeArray.svelte';
+import type { Variant, VariantMeta } from 'kitbook'
+import type Component from './BadgeArray.svelte'
 
-const books = ['Lord of the Rings', 'www.books.com'];
+export const shared_meta: VariantMeta = {
+  viewports: [
+    { width: 500, height: 200 },
+  ],
+}
 
-export const variants: Variants<Component> = [
-  {
-    name: 'Basic display',
-    props: {
-      strings: books,
-      promptMessage: "What is the book name?",
-      addMessage: "Add Book"
-    },
-  },
-  // rtl
-  {
-    name: 'Editable',
-    props: {
-      canEdit: true,
-      strings: books,
-      promptMessage: "What is the book name?",
-      addMessage: "Add Book"
-    },
-  },
-  // editable rtl
-  {
-    name: "handles strings",
-    props: {
-      strings: "How about this?" as any as Array<string>,
-      promptMessage: "Let's see how this works... Add something",
-      addMessage: "Add Something"
-    }
-  }
-]
+const shared = {
+  strings: ['Lord of the Rings', 'www.books.com'],
+  promptMessage: 'What is the book name?',
+  addMessage: 'Add Book',
+} satisfies Partial<Variant<Component>>
 
-// automatically log events
-// on:valueupdated={(e) => console.log('valueupdated', e.detail)}
+export const Basic: Variant<Component> = {
+  ...shared,
+}
 
+export const Editable: Variant<Component> = {
+  ...shared,
+  canEdit: true,
+}
 
-
+export const Handles_strings: Variant<Component> = {
+  ...shared,
+  strings: 'How about this?' as any as string[],
+  addMessage: 'Add Something',
+  promptMessage: 'Let\'s see how this works... Add something',
+}

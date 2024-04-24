@@ -1,0 +1,15 @@
+<script>
+  import Button from '../ui/Button.svelte'
+  import Form from './Form.svelte'
+</script>
+
+<Form
+  let:loading
+  onsubmit={async () => {
+    console.info('starting')
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    console.info('finishing')
+  }}>
+  <input class="border border-gray-500 rounded" type="text" placeholder="Type and hit enter" />
+  <Button {loading} type="submit">Submit</Button>
+</Form>

@@ -1,0 +1,30 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import Store from './Store.svelte'
+
+  let value = 'world'
+</script>
+
+<Store startWith="hello" let:set let:store={text}>
+  <input
+    type="text"
+    value={text}
+    on:input={(e) => {
+      // @ts-expect-error
+      set(e.target.value)
+    }} />
+  <div>{text}</div>
+</Store>
+
+<hr />
+
+Two-way binding for comparison:<br />
+<input type="text" bind:value />
+<div>{value}</div>

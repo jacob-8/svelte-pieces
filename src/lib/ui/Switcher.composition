@@ -1,0 +1,39 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import Switcher from './Switcher.svelte'
+
+  const items = [
+    {
+      title: 'Apps',
+      key: 'APPS',
+    },
+    {
+      title: 'Deploy',
+      key: 'DEPLOY',
+    },
+    {
+      title: 'Integrations',
+      key: 'INTEGRATIONS',
+    },
+    {
+      title: 'Settings',
+      key: 'SETTINGS',
+    },
+  ]
+
+  let value = 'SETTINGS'
+</script>
+
+<Switcher
+  headings={items}
+  bind:value
+  on:change={e => console.info('selected', e.detail.value)}>
+  {value}
+</Switcher>

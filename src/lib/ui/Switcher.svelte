@@ -1,17 +1,17 @@
 <script lang="ts">
-  import Button from './Button.svelte';
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte'
+  import Button from './Button.svelte'
 
-  const dispatch = createEventDispatcher<{ change: { value: string } }>();
+  const dispatch = createEventDispatcher<{ change: { value: string } }>()
 
-  export let headings: { title: string; key: string }[] = [];
-  export let value: string;
+  export let headings: { title: string, key: string }[] = []
+  export let value: string
 
-  onMount(() => focusActive(`#${value}`));
-  $: typeof window !== 'undefined' && focusActive(`#${value}`);
+  onMount(() => focusActive(`#${value}`))
+  $: typeof window !== 'undefined' && focusActive(`#${value}`)
 
   function focusActive(el: string) {
-    document.querySelector(el)?.scrollIntoView({ inline: 'center' });
+    document.querySelector(el)?.scrollIntoView({ inline: 'center' })
   }
 </script>
 
@@ -23,10 +23,9 @@
           form="menu"
           active={value === heading.key}
           onclick={() => {
-            value = heading.key;
-            dispatch('change', { value: heading.key });
-          }}
-        >
+            value = heading.key
+            dispatch('change', { value: heading.key })
+          }}>
           {heading.title}
         </Button>
       </div>

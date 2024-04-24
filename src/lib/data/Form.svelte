@@ -1,20 +1,20 @@
 <script lang="ts">
   export let onsubmit: (
     e: MouseEvent & {
-      currentTarget: EventTarget & HTMLFormElement;
+      currentTarget: EventTarget & HTMLFormElement
     }
-  ) => any;
-  let loading = false;
+  ) => any
+  let loading = false
   async function submitWithLoading(event) {
     if (onsubmit) {
-      loading = true;
+      loading = true
       try {
-        await onsubmit(event);
+        await onsubmit(event)
       } catch (err) {
-        console.error(err);
-        alert(err);
+        console.error(err)
+        alert(err)
       }
-      loading = false;
+      loading = false
     }
   }
 </script>

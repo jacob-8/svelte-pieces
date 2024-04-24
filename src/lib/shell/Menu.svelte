@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { fly } from 'svelte/transition';
-  import { portal } from '../actions/portal';
-  import { clickoutside } from '$lib/actions/clickoutside';
+  import { fly } from 'svelte/transition'
+  import { portal } from '../actions/portal'
+  import { clickoutside } from '$lib/actions/clickoutside'
 
   /** `body` or `#direction` for example */
-  export let portalTarget: string = undefined;
-  export let onclickoutside: (e: CustomEvent<boolean>) => any = undefined;
+  export let portalTarget: string = undefined
+  export let onclickoutside: (e: CustomEvent<boolean>) => any = undefined
 </script>
 
 {#if portalTarget}
@@ -15,8 +15,7 @@
     on:clickoutside={onclickoutside}
     transition:fly={{ y: -10, duration: 150 }}
     class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
-shadow-lg"
-  >
+      shadow-lg">
     <div class="sv-menu">
       <slot />
     </div>
@@ -27,8 +26,7 @@ shadow-lg"
     on:clickoutside={onclickoutside}
     transition:fly={{ y: -10, duration: 150 }}
     class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
-shadow-lg"
-  >
+      shadow-lg">
     <div class="sv-menu">
       <slot />
     </div>

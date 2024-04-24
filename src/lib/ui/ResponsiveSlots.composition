@@ -1,0 +1,21 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import ResponsiveSlots from './ResponsiveSlots.svelte'
+
+  const widths = ['sm', 'md', 'lg', 'xl'] as const
+</script>
+
+{#each widths as width}
+<ResponsiveSlots showWidth={width}>
+  permanent content: {width}
+  <div slot="desktop">desktop</div>
+  <div slot="mobile">mobile</div>
+</ResponsiveSlots>
+{/each}

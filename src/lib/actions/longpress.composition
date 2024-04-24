@@ -1,0 +1,12 @@
+<script>
+  import { longpress } from './longpress'
+
+  const duration = 1000
+</script>
+
+  <button
+    class="p-3 hover:bg-gray-200"
+    type="button"
+    use:longpress={duration}
+    on:longpress={() => alert('longpress')}
+    on:shortpress={() => alert('shortpress')}>Press/tap more or less than {duration}</button>

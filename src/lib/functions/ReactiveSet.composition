@@ -1,0 +1,31 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import ReactiveSet from '$lib/functions/ReactiveSet.svelte'
+  import Button from '$lib/ui/Button.svelte'
+
+  const books = ['Kullamazoo', 'foo']
+  const firstItem = 'bar'
+</script>
+
+<ReactiveSet input={[firstItem, ...books]} let:update let:value let:remove let:add let:size>
+  <pre>{JSON.stringify(value, null, 1)}</pre>
+  <div>
+    Size: {size}
+  </div>
+  <Button
+    onclick={() => {
+      const string = prompt('What would you like to add?')
+      if (string) {
+        add(string.trim())
+      }
+    }}>Add</Button>
+  <Button onclick={() => update(['foo', 'fi', 'fee'])}>Update</Button>
+  <Button onclick={() => remove(value[0])}>Remove "{value[0]}"</Button>
+</ReactiveSet>

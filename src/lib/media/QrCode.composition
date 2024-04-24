@@ -1,0 +1,13 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import QrCode from './QrCode.svelte'
+</script>
+
+<QrCode value='kitbook.vercel.app' pixelsPerModule={4} errorCorrection="high" />

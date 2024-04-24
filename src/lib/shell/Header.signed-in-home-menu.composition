@@ -1,0 +1,15 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 250 }],
+  })
+</script>
+
+<script lang="ts">
+  import Header from '$lib/shell/Header.svelte'
+</script>
+
+<div style="margin-bottom: 150px;">
+  <Header user={{ displayName: 'John', email: 'john1234@gmail.com' }} />
+</div>

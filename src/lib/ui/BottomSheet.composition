@@ -1,0 +1,69 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 400 }],
+  })
+</script>
+
+<script lang="ts">
+  import BottomSheet from './BottomSheet.svelte'
+  import { Button } from '$lib'
+  import ShowHide from '$lib/functions/ShowHide.svelte'
+
+  let max = 10
+  let start = 40
+  let contentHeight = 500
+  const duration = 150
+</script>
+
+<ShowHide let:show let:toggle>
+  <Button size="sm" onclick={toggle} form="filled">Toggle Show</Button>
+  <Button size="sm" onclick={() => max = 10} active={max === 10}>Top max</Button>
+  <Button size="sm" onclick={() => max = 40} active={max === 40}>Middle max</Button>
+  <Button size="sm" onclick={() => max = 85} active={max === 85}>Bottom max</Button>
+  <Button size="sm" onclick={() => start = 10} active={start === 10}>Top Start</Button>
+  <Button size="sm" onclick={() => start = 40} active={start === 40}>Middle Start</Button>
+  <Button size="sm" onclick={() => start = 85} active={start === 85}>Bottom Start</Button>
+  <Button size="sm" onclick={() => contentHeight = 500} active={contentHeight === 500}>Tall Content</Button>
+  <Button size="sm" onclick={() => contentHeight = 250} active={contentHeight === 250}>Med Content</Button>
+  <Button size="sm" onclick={() => contentHeight = 100} active={contentHeight === 100}>Short Content</Button>
+  {#if show}
+    <BottomSheet on:close={toggle} {max} {start} {duration}>
+      <div slot="header">
+        Title
+        <Button
+          size="sm"
+          form="simple"
+          onclick={() => contentHeight = 250}
+          active={contentHeight === 250}>Med Content</Button>
+        <Button
+          size="sm"
+          form="simple"
+          onclick={() => contentHeight = 100}
+          active={contentHeight === 100}>Short Content</Button>
+      </div>
+      <p class="bg-gray-100" style="height: {contentHeight}px">Content</p>
+    </BottomSheet>
+  {/if}
+</ShowHide>
+
+<div class="mb-10"></div>
+
+<ShowHide let:show let:toggle>
+  <Button size="sm" onclick={toggle} form="filled">Toggle No-Header Version</Button>
+  {#if show}
+    <BottomSheet on:close={toggle}>
+      <p class="bg-gray-100" style="height: {contentHeight}px">Content</p>
+    </BottomSheet>
+  {/if}
+</ShowHide>
+
+<ShowHide let:show let:toggle>
+  <Button size="sm" onclick={toggle} form="filled">Toggle Set Pixels Version</Button>
+  {#if show}
+    <BottomSheet startType="pixels" start={400} on:close={toggle}>
+      <p class="bg-gray-100" style="height: 250px">Content</p>
+    </BottomSheet>
+  {/if}
+</ShowHide>

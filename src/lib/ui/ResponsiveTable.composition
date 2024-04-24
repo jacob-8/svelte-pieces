@@ -1,0 +1,41 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ width: 600, height: 400 }],
+  })
+</script>
+
+<script lang="ts">
+  import ResponsiveTable from './ResponsiveTable.svelte'
+
+  const stickyHeading = true
+  const stickyColumn = true
+</script>
+
+  <ResponsiveTable {stickyHeading} {stickyColumn}>
+    <thead>
+      <th>Item</th>
+      <th>
+        <div style="width: 600px;" />
+        Description
+      </th>
+      <th>Public</th>
+    </thead>
+    {#each [...Array(100)] as _, index}
+      <tr>
+        <td>Item #{index}</td>
+        <td>Here's quite a big description that has a lot of content that we would like to be able
+          to define a width for. We can do this by adding a div with a width style.
+          <input type="text" placeholder="focus to see darker gray" />
+        </td>
+        <td>{index % 2 ? 'yes' : 'no'}</td>
+      </tr>
+    {/each}
+  </ResponsiveTable>
+
+<style>
+  thead th {
+    --at-apply: text-xs font-semibold text-gray-600 uppercase tracking-wider;
+  }
+</style>
