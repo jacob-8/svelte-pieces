@@ -1,7 +1,6 @@
 # Svelte-Pieces
 
-<a href="https://www.npmjs.com/package/svelte-pieces"><img src="https://img.shields.io/npm/v/svelte-pieces?color=729B1B&label="></a>
-[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/jacob-8/svelte-pieces) [![npm](https://img.shields.io/npm/v/svelte-pieces?color=729B1B)](https://www.npmjs.com/package/svelte-pieces) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
 
 <!-- Kitbook Skip -->
 
