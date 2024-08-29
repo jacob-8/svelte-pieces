@@ -16,9 +16,13 @@
   <Button onclick={toggle}>Open modal</Button>
   <input placeholder="testing focus" />
 
+  <!-- Doesn't seem to work -->
+  <!-- on:keydown={event => event.stopPropagation()} -->
+  <!-- <div>Press the right arrow to trigger an alert (and then try it again once the modal is opened to see that it no longer triggers)</div> -->
+
   <!-- <div style="height: 500px;">I'm tall to test toggling of document scroll - doesn't work since iframe body height is set to 100%, could add flag to turn this off?</div> -->
   {#if show}
-    <Modal on:close={toggle} noscroll>
+    <Modal on_close={toggle} noscroll>
       <div slot="heading">Heading</div>
       <form
         on:submit|preventDefault={(e) => {
@@ -36,3 +40,8 @@
     </Modal>
   {/if}
 </ShowHide>
+
+<!-- <svelte:window
+  on:keydown={(e) => {
+    if (e.key === 'ArrowRight') alert('right')
+  }} /> -->

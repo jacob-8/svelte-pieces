@@ -1,0 +1,16 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import Modal from './Modal.svelte'
+  // props will be added here automatically and also editable in the future, for the moment you need to add them and pass to your component.
+</script>
+
+<Modal on_close={() => alert('closed')} show_x={false}>
+  <div class="bg-red">Hi, I want to be higher up and without the X</div>
+</Modal>
